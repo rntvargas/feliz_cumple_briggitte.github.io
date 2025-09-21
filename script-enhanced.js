@@ -15,7 +15,7 @@ const birthdayAudio = document.getElementById("birthday-audio");
 const playPauseButton = document.getElementById("play-pause-button");
 
 // Frase personalizada del usuario
-const userPersonalMessage = "✨ “Feliz cumpleaños, Briggitte 🎂🌻 Que este nuevo año de vida te regale tantos motivos para sonreír como estrellas hay en el cielo. Sigue brillando con tu luz única. Con cariño, Ren ✨”";
+const userPersonalMessage = "✨ “wiiii llego tu cumpleaños 🎂🌻 No puedo dejar pasar la oportunidad de recorddarte lo valiosa que eres para mi. Eres una persona única, con tu toque de locura encantadora 😜, pero sobre todo hermosa por dentro y por fuera. Gracias por tu paciencia, por entenderme, por esos chats interminables y por todos los momentos que hemos compartido y compartiremos 🎂🌻 Que este nuevo año de vida te regale tantos motivos para sonreír como estrellas hay en el cielo. Sigue brillando con tu luz única. Con cariño, Ren ✨”";
 
 // Variables para animaciones
 let countdownInterval;
