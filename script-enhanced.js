@@ -1,4 +1,4 @@
-// Configuración de la fecha del cumpleaño
+// Configuración de la fecha del cumpleaños
 const birthdayDate = new Date('2025-09-21T00:00:00');
 
 // Elementos del DOM
@@ -102,17 +102,38 @@ function formatNumber(num) {
     return num.toString().padStart(2, '0');
 }
 
-// Función para crear efecto de escritura en el título
-
-
+// Función para crear efecto de escritura en el título - CORREGIDA
+function typeWriterEffect(element, text, speed = 100) {
+    if (!element) return; // Verificar que el elemento existe
+    
+    element.textContent = '';
+    element.style.width = 'auto';
+    element.style.overflow = 'visible';
+    element.style.whiteSpace = 'normal';
+    element.style.display = 'block';
+    element.style.visibility = 'visible';
+    
+    let i = 0;
+    const timer = setInterval(() => {
+        if (i < text.length) {
+            element.textContent += text.charAt(i);
+            i++;
+        } else {
+            clearInterval(timer);
+        }
+    }, speed);
+}
 
 // Función para actualizar el contador regresivo
 function updateCountdown() {
     const now = new Date().getTime();
     const distance = birthdayDate.getTime() - now;
     
+    console.log('Tiempo restante:', distance); // Debug
+    
     // Si ya es el cumpleaños o ya pasó
     if (distance < 0) {
+        console.log('¡Es hora del cumpleaños!'); // Debug
         showBirthdayMessage();
         return;
     }
@@ -143,7 +164,7 @@ function updateCountdown() {
 
 // Función para actualizar números con animación
 function updateNumberWithAnimation(element, newValue) {
-    if (element.textContent !== newValue) {
+    if (element && element.textContent !== newValue) {
         element.style.transform = 'scale(1.2)';
         element.style.transition = 'transform 0.2s ease';
         
@@ -154,41 +175,63 @@ function updateNumberWithAnimation(element, newValue) {
     }
 }
 
-// Función para mostrar el mensaje de cumpleaños con efectos especiales
+// Función para mostrar el mensaje de cumpleaños - CORREGIDA
 function showBirthdayMessage() {
+    console.log('Mostrando mensaje de cumpleaños...'); // Debug
     clearInterval(countdownInterval);
     
+    // Verificar que los elementos existen
+    if (!birthdayMessage) {
+        console.error('No se encontró el elemento birthday-message');
+        return;
+    }
+    
     // Ocultar contador con animación mejorada
-    countdownContainer.style.animation = 'fadeOut 1s ease-out forwards';
+    if (countdownContainer) {
+        countdownContainer.style.animation = 'fadeOut 1s ease-out forwards';
+    }
     
     setTimeout(() => {
-        countdownContainer.style.display = 'none';
+        if (countdownContainer) {
+            countdownContainer.style.display = 'none';
+        }
+        
+        // Mostrar el mensaje de cumpleaños
+        birthdayMessage.style.display = 'block';
         birthdayMessage.classList.add('show');
+        
+        console.log('Mensaje de cumpleaños mostrado'); // Debug
+        
         createEnhancedConfetti();
         
         // Efecto de escritura en el título de cumpleaños
-        // Mostrar el título directo
         const birthdayTitle = document.querySelector(".birthday-title");
         if (birthdayTitle) {
-            birthdayTitle.textContent = "¡Feliz Cumpleaños!";
+            console.log('Aplicando efecto de escritura al título'); // Debug
+            typeWriterEffect(birthdayTitle, "¡Feliz Cumpleaños!", 150);
         }
 
-// Mostrar frase personalizada directa
+        // Mostrar frase personalizada - CORREGIDO
         if (personalMessageElement) {
-           personalMessageElement.textContent = userPersonalMessage;
+            console.log('Mostrando mensaje personalizado:', userPersonalMessage); // Debug
+            personalMessageElement.style.display = 'block';
+            personalMessageElement.style.visibility = 'visible';
+            
+            setTimeout(() => {
+                typeWriterEffect(personalMessageElement, userPersonalMessage, 50);
+            }, 2000); // Esperar 2 segundos después del título
+        } else {
+            console.error('No se encontró el elemento personal-message');
         }
- 
-
-
-     
         
         // Reproducir música de fondo
         if (birthdayAudio) {
-            birthdayAudio.volume = 0.5; // Volumen inicial
+            birthdayAudio.volume = 0.5;
             birthdayAudio.play().catch(e => console.log("Error al reproducir audio: ", e));
             
             // Control de play/pause
             if (playPauseButton) {
+                playPauseButton.style.display = 'block';
                 playPauseButton.addEventListener("click", () => {
                     if (birthdayAudio.paused) {
                         birthdayAudio.play();
@@ -284,21 +327,28 @@ function createParallaxEffect() {
 
 // Función de inicialización mejorada
 function init() {
+    console.log('Inicializando aplicación...'); // Debug
+    
     // Verificar si ya es el cumpleaños
     const now = new Date();
-    const currentYear = now.getFullYear();
-    const thisYearBirthday = new Date(currentYear, 8, 21); // Septiembre es mes 8 (0-indexado)
     
-    // Si ya pasó el cumpleaños este año, mostrar para el próximo año
-    if (now > thisYearBirthday) {
-        birthdayDate.setFullYear(currentYear + 1);
+    // CORRECCIÓN: Usar la fecha exacta configurada
+    console.log('Fecha actual:', now);
+    console.log('Fecha del cumpleaños:', birthdayDate);
+    
+    // Verificar si hoy es el cumpleaños (para testing)
+    const isToday = now.toDateString() === birthdayDate.toDateString();
+    if (isToday) {
+        console.log('¡Hoy es el cumpleaños!');
+        showBirthdayMessage();
+        return;
     }
     
     // Efecto de escritura en el título principal
     const mainTitle = document.querySelector('.main-title');
     if (mainTitle) {
-        
-        mainTitle.textContent = mainTitle.textContent;
+        const originalText = mainTitle.textContent;
+        typeWriterEffect(mainTitle, originalText, 100);
     }
     
     // Iniciar contador regresivo
@@ -330,6 +380,12 @@ function init() {
     }
 }
 
+// FUNCIÓN DE TESTING - Eliminar en producción
+function testBirthdayMessage() {
+    console.log('Probando mensaje de cumpleaños...');
+    showBirthdayMessage();
+}
+
 // Añadir estilos CSS adicionales para animaciones mejoradas
 const enhancedStyles = `
     @keyframes fadeOut {
@@ -354,6 +410,21 @@ const enhancedStyles = `
     .main-title {
         overflow: hidden;
         white-space: nowrap;
+    }
+    
+    #birthday-message {
+        display: none;
+        visibility: hidden;
+    }
+    
+    #birthday-message.show {
+        display: block !important;
+        visibility: visible !important;
+    }
+    
+    #personal-message {
+        display: none;
+        visibility: hidden;
     }
 `;
 
@@ -381,6 +452,11 @@ document.addEventListener('keydown', (e) => {
         e.preventDefault();
         // Crear efecto especial al presionar espacio
         createEnhancedParticles();
+    }
+    
+    // PARA TESTING: Presiona 'T' para probar el mensaje de cumpleaños
+    if (e.code === 'KeyT') {
+        testBirthdayMessage();
     }
 });
 
