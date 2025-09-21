@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Feliz Cumpleaños Briggitte!</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Poppins:wght@300;400;600;700&family=Inter:wght@300;400;500&family=Dancing+Script:wght@400;700&family=Cinzel:wght@400;600&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Partículas de fondo -->
+        <div class="particles" id="particles"></div>
+        
+        <!-- Contenido principal -->
+        <div class="main-content">
+            <div class="header">
+                <h1 class="main-title">Briggitte</h1>
+                <p class="subtitle">Su día especial se acerca...</p>
+            </div>
+            
+            <!-- Contador regresivo -->
+            <div class="countdown-container" id="countdown-container">
+                <div class="countdown-grid">
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="days">00</div>
+                        <div class="countdown-label">Días</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="hours">00</div>
+                        <div class="countdown-label">Horas</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="minutes">00</div>
+                        <div class="countdown-label">Minutos</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="seconds">00</div>
+                        <div class="countdown-label">Segundos</div>
+                    </div>
+                </div>
+                <div class="countdown-message">
+                    <p>hasta el 21 de septiembre</p>
+                </div>
+            </div>
+            
+            <!-- Mensaje de felicitación (oculto inicialmente) -->
+            <div class="birthday-message" id="birthday-message">
+                <h2 class="birthday-title">¡Feliz Cumpleaños!</h2>
+                <p class="birthday-text">Que este nuevo año de vida esté lleno de alegría, amor y momentos especiales.</p>
+                <div class="confetti" id="confetti"></div>
+            </div>
+        </div>
+        
+        <!-- Decoraciones flotantes -->
+        <div class="floating-decorations">
+            <div class="balloon balloon-1">🎈</div>
+            <div class="balloon balloon-2">🎈</div>
+            <div class="balloon balloon-3">🎈</div>
+            <div class="star star-1">⭐</div>
+            <div class="star star-2">⭐</div>
+            <div class="star star-3">⭐</div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
+
