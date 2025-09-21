@@ -1,5 +1,5 @@
 // Configuración de la fecha del cumpleaño
-const birthdayDate = new Date('2025-09-20T00:00:00');
+const birthdayDate = new Date('2025-09-21T00:00:00');
 
 // Elementos del DOM
 const daysElement = document.getElementById("days");
